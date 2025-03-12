@@ -10,6 +10,7 @@
     <select id="getAllStudents" resultMap="studentResultMap">
         SELECT `id`, `name`, `birthday`
         FROM `student`
+        LIMIT #{limit} OFFSET #{offset}
     </select>
 
     <select id="getStudentById" resultMap="studentResultMap">

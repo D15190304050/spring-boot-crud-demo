@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import stark.demo.crud.dao.StudentMapper;
+import stark.demo.crud.dto.PaginationRequest;
 import stark.demo.crud.dto.ServiceResponse;
 import stark.demo.crud.dto.StudentDto;
 import stark.demo.crud.entities.Student;
@@ -19,9 +20,9 @@ public class StudentController
     private StudentMapper studentMapper;
 
     @GetMapping("/all")
-    public ServiceResponse<List<Student>> getAllStudents()
+    public ServiceResponse<List<Student>> getAllStudents(@ModelAttribute PaginationRequest request)
     {
-        List<Student> students = studentMapper.getAllStudents();
+        List<Student> students = studentMapper.getAllStudents(request.getPageSize(), (request.getPageIndex() - 1) * request.getPageSize());
         ServiceResponse<List<Student>> response = ServiceResponse.buildSuccessResponse(students);
         response.putExtra("size", students.size());
 
