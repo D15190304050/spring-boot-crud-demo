@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="stark.demo.crud.dao.StudentMapper">
+    <resultMap id="studentResultMap" type="stark.demo.crud.entities.Student">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="birthday" column="birthday"/>
+    </resultMap>
+
+    <select id="getAllStudents" resultMap="studentResultMap">
+        SELECT `id`, `name`, `birthday`
+        FROM `student`
+    </select>
+
+    <select id="getStudentById" resultMap="studentResultMap">
+        SELECT `id`, `name`, `birthday`
+        FROM `student`
+        WHERE `id` = #{id}
+    </select>
+
+    <update id="updateById">
+        UPDATE `student`
+        SET `name` = #{name},
+            `birthday` = #{birthday}
+        WHERE `id` = #{id}
+    </update>
+</mapper>
